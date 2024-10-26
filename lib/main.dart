@@ -1,11 +1,13 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:tugas_starbhak_mart/add.dart';
 import 'package:tugas_starbhak_mart/components.dart';
 import 'package:tugas_starbhak_mart/cart.dart';
+import 'package:tugas_starbhak_mart/tsx.dart';
 
 void main() {
-  runApp(const Cart());
+  runApp(const Add());
 }
 
 class MainApp extends StatelessWidget {
@@ -33,7 +35,7 @@ class MainApp extends StatelessWidget {
         ),
         body: Container(
           margin:
-              const EdgeInsets.only(left: 40, right: 40, bottom: 40, top: 15),
+          const EdgeInsets.only(left: 40, right: 40, bottom: 40, top: 15),
           color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

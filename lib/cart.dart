@@ -19,7 +19,11 @@ class Cart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Components.makeButton(Icons.arrow_back, () => {}),
-                  Text("Cart"),
+                  Text("Cart",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700
+                  ),
+                  ),
                   Components.makeButton(Icons.person_outline_outlined, () => {})
                 ],
               ),
@@ -130,27 +134,55 @@ class Cart extends StatelessWidget {
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(" Ringkasan Belanja"),
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 5),
+                          child: Text(
+                              " Ringkasan Belanja",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                        ) 
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(" PPN 11%"),
-                          Text("Rp 10.000,00"),
+                          Container(
+                            margin: EdgeInsets.only(bottom: 5),
+                            child: Text(" PPN 11%"),
+                          ),
+                          Container(
+                          margin: EdgeInsets.only(bottom: 5),
+                          child: Text("Rp 10.000,00"),
+                          )
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(" Total Belanja"),
-                          Text("Rp 104.000,00"),
+                          Text("Rp 94.000,00"),
                         ],
                       ),
+                      Container(
+                          margin: EdgeInsets.symmetric(vertical: 8.8),
+                          height: 0.5, // Set the height for the line thickness
+                          color: Colors.black, // Set the line color
+                      ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Total Pembayaran"),
-                          Text("Rp 104.000,00"),
+                          Text("Total Pembayaran",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700
+                          ),
+                          ),
+                          Text("Rp 104.000,00",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                          ),
+                          ),
                         ],
                       ),
                     ],
@@ -162,7 +194,7 @@ class Cart extends StatelessWidget {
                     height: 65,
                     width: 300,
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 44, 112, 190),
+                        color: const Color(0xFF3748E4),
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
@@ -171,7 +203,13 @@ class Cart extends StatelessWidget {
                               blurRadius: 3)
                         ]),
                     child: Center(
-                      child: Text("Checkout"),
+                      child: Text("Checkout",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      ),
                     ),
                   ),
                 )

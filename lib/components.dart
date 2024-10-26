@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Components {
   static makeButton(IconData icon1, VoidCallback onPressed) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(100)),
           color: Colors.white,
