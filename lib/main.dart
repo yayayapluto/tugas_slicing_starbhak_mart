@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:tugas_starbhak_mart/components.dart';
+import 'package:tugas_starbhak_mart/cart.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const Cart());
 }
 
 class MainApp extends StatelessWidget {
@@ -13,16 +17,23 @@ class MainApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight:100,
+          toolbarHeight: 100,
           scrolledUnderElevation: 0,
           backgroundColor: Colors.white,
           title: Container(
             padding: EdgeInsets.all(20),
-            child: loadTopButton(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Components.makeButton(Icons.menu, () => {}),
+                Components.makeButton(Icons.person_outline_outlined, () => {})
+              ],
+            ),
           ),
         ),
         body: Container(
-          margin: const EdgeInsets.only(left: 40, right: 40, bottom: 40, top: 15),
+          margin:
+              const EdgeInsets.only(left: 40, right: 40, bottom: 40, top: 15),
           color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,41 +48,10 @@ class MainApp extends StatelessWidget {
     );
   }
 
-  Widget loadTopButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black12, spreadRadius: 1, blurRadius: 15),
-              ]),
-          child: IconButton(onPressed: () => {}, icon: const Icon(Icons.menu)),
-        ),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black12, spreadRadius: 1, blurRadius: 15),
-              ]),
-          child: IconButton(
-              onPressed: () => {},
-              icon: const Icon(Icons.person_outline_outlined)),
-        ),
-      ],
-    );
-  }
-
   Widget loadTripleButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Column(
           children: [
@@ -155,7 +135,14 @@ class MainApp extends StatelessWidget {
     );
   }
 
-  Widget loadAllFood() {
+  Widget loadAllFood(
+      {List<List> foodItems = const [
+        ["Burger King Medium", "50.000"],
+        ["Pizza Margherita", "70.000"],
+        ["Sushi Set", "65.000"],
+        ["Pasta Alfredo", "60.000"],
+        ["Salad Bowl", "55.000"]
+      ]}) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,67 +155,66 @@ class MainApp extends StatelessWidget {
           SizedBox(height: 10),
           SizedBox(
             height: 570,
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            child: Expanded(
+              child: GridView.count(
                 crossAxisCount: 2,
-                childAspectRatio: 0.8,
+                childAspectRatio: 0.75,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
-              ),
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        spreadRadius: 5,
-                        blurRadius: 10,
-                      ),
-                    ],
-                  ),
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
-                        child: Image(
-                          image: NetworkImage(
-                            "https://i.pinimg.com/474x/fd/49/e3/fd49e36238f612556c911c26fe2b5039.jpg",
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text("Burger King Medium"),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Rp. 50.000,00",
-                            textAlign: TextAlign.left,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(100)),
-                              color: Colors.green,
+                children: List.generate(foodItems.length, (index) {
+                  return Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          spreadRadius: 2,
+                          blurRadius: 5
+                        )
+                      ]
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          child: Image(
+                            image: NetworkImage(
+                              "https://i.pinimg.com/474x/fd/49/e3/fd49e36238f612556c911c26fe2b5039.jpg",
                             ),
-                            child: Icon(Icons.add),
+                            fit: BoxFit.cover,
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
+                        ),
+                        SizedBox(height: 8),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(foodItems[index][0]),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              foodItems[index][1],
+                              textAlign: TextAlign.left,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100)),
+                                color: Colors.green,
+                              ),
+                              child: Icon(Icons.add),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ),
             ),
           ),
         ],
@@ -252,23 +238,13 @@ class MainApp extends StatelessWidget {
           IconButton(
               onPressed: () => {}, icon: Icon(Icons.home_filled, size: 35)),
           IconButton(
-              onPressed: () => {}, icon: Icon(Icons.shopping_cart_outlined, size: 35)),
+              onPressed: () => {},
+              icon: Icon(Icons.shopping_cart_outlined, size: 35)),
           IconButton(
               onPressed: () => {},
               icon: Icon(Icons.post_add_outlined, size: 35)),
         ],
       ),
     );
-  }
-}
-
-class Cart extends StatelessWidget {
-  const Cart({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("Cart")),
-        body: Center(child: Text("Cart is empty")));
   }
 }
