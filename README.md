@@ -1,3 +1,4 @@
-# tugas_slicing_starbhak_mart
-
-A new Flutter project.
+# Tugas PBO Slicing Desain Figma
+## 11 PPLG 2 SMK TARUNA BHAKTI DEPOK
+- Muhammad Farras Ashshiddiqi
+- Glenn Martua Simanjorang
